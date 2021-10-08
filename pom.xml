@@ -15,7 +15,7 @@
     <artifactId>price</artifactId>
     <version>0.0.1</version>
     <name>price</name>
-    <description>Price API</description>
+    <description>ZARA technical exam</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -24,6 +24,8 @@
         <springdoc.version>1.5.2</springdoc.version>
         <h2.version>1.4.197</h2.version>
         <junit.platform.version>1.7.0</junit.platform.version>
+        <jackson.version>2.9.5</jackson.version>
+        <open.api.version>1.5.2</open.api.version>
     </properties>
 
     <dependencyManagement>
@@ -94,6 +96,18 @@
                 <scope>test</scope>
                 <version>${spring.boot.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>com.fasterxml.jackson.module</groupId>
+                <artifactId>jackson-module-afterburner</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-ui</artifactId>
+                <version>${open.api.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -124,6 +138,17 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.module</groupId>
+            <artifactId>jackson-module-afterburner</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-ui</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
