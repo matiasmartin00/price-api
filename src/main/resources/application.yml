@@ -1,3 +1,8 @@
+app:
+  title: Price API
+  description: @project.description@
+  version: @project.version@
+
 spring:
   mvc:
     throw-exception-if-no-handler-found: true # Whether a "NoHandlerFoundException" should be thrown if no Handler was found to process a request.
@@ -12,3 +17,7 @@ server:
     enabled: true # Whether response compression is enabled.
     mime-types: text/html,text/xml,text/plain,text/css,text/javascript,application/javascript,application/json # Comma-separated list of MIME types that should be compressed.
     min-response-size: 1024 # Minimum "Content-Length" value that is required for compression to be performed.
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
