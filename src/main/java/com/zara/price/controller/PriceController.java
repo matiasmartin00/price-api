@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigDecimal;
-import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
 @RestController
@@ -30,8 +29,8 @@ public class PriceController {
                         .productId(productId)
                         .brand(brand)
                         .priceList(1L)
-                        .startDate(ZonedDateTime.of(2021, 1, 1, 17, 20, 0, 0, ZoneId.of("America/Argentina/Buenos_Aires")))
-                        .endDate(ZonedDateTime.of(2021, 1, 29, 23, 59, 0, 0, ZoneId.of("America/Argentina/Buenos_Aires")))
+                        .startDate(ZonedDateTime.parse("2021-01-01T00:00:00-03:00"))
+                        .endDate(ZonedDateTime.parse("2021-01-02T00:00:00-03:00"))
                         .price(new BigDecimal("10.6573"))
                         .build()
         );
