@@ -1,5 +1,6 @@
 package com.zara.price.enums;
 
+import com.zara.price.exception.InvalidBrandException;
 import lombok.AllArgsConstructor;
 
 import java.util.stream.Stream;
@@ -7,7 +8,6 @@ import java.util.stream.Stream;
 @AllArgsConstructor
 public enum Brand {
 
-    DEFAULT(-1L),
     ZARA(1L);
 
     private Long id;
@@ -16,6 +16,6 @@ public enum Brand {
         return Stream.of(values())
                 .filter(b -> b.name().equalsIgnoreCase(brand))
                 .findFirst()
-                .orElse(DEFAULT);
+                .orElseThrow(InvalidBrandException::new);
     }
 }

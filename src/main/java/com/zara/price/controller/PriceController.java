@@ -2,6 +2,7 @@ package com.zara.price.controller;
 
 import com.zara.price.controller.dto.Price;
 import com.zara.price.enums.Brand;
+import com.zara.price.exception.InvalidProductException;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +24,7 @@ public class PriceController {
             @RequestParam("product_id") Long productId,
             @RequestParam Brand brand
             ) {
+        checkProductId(productId);
         return ResponseEntity.ok(
                 Price.builder()
                         .productId(productId)
@@ -33,5 +35,11 @@ public class PriceController {
                         .price(new BigDecimal("10.6573"))
                         .build()
         );
+    }
+
+    private void checkProductId(Long productId) {
+        if (productId <= 0) {
+            throw new InvalidProductException();
+        }
     }
 }
