@@ -1,9 +1,12 @@
-package com.zara.price.repository;
+package com.zara.price.repository.model;
 
+import com.zara.price.enums.Currency;
 import lombok.Data;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.math.BigDecimal;
@@ -39,5 +42,6 @@ public class Price {
     private BigDecimal price;
 
     @Column(name = "CURR")
-    private String curr;
+    @Enumerated(EnumType.STRING)
+    private Currency curr;
 }

@@ -3,6 +3,7 @@ package com.zara.price.controller.dto;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.zara.price.enums.Brand;
+import com.zara.price.enums.Currency;
 import com.zara.price.serializer.DateDeserializer;
 import com.zara.price.serializer.DateSerializer;
 import lombok.AllArgsConstructor;
@@ -32,4 +33,5 @@ public class Price {
     private ZonedDateTime endDate;
 
     private BigDecimal price;
+    private Currency currency;
 }
