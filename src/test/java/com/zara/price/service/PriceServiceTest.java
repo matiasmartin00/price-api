@@ -7,6 +7,7 @@ import com.zara.price.exception.PriceNotFoundException;
 import com.zara.price.fixture.PriceFixture;
 import com.zara.price.repository.PriceRepository;
 import com.zara.price.serivce.PriceService;
+import com.zara.price.serivce.PriceServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -35,8 +36,8 @@ public class PriceServiceTest {
     @TestConfiguration
     static class TestContextConfiguration {
         @Bean
-        public PriceService priceService(PriceRepository priceRepository) {
-            return new PriceService(priceRepository);
+        public PriceServiceImpl priceService(PriceRepository priceRepository) {
+            return new PriceServiceImpl(priceRepository);
         }
     }
 
