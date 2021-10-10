@@ -1,6 +1,7 @@
 package com.zara.price.repository.model;
 
 import com.zara.price.enums.Currency;
+import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.Column;
@@ -14,6 +15,7 @@ import java.time.ZonedDateTime;
 
 @Data
 @Entity
+@Builder
 @Table(name = "PRICES")
 public class Price {
 

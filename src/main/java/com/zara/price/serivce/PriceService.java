@@ -1,6 +1,9 @@
 package com.zara.price.serivce;
 
 import com.zara.price.enums.Brand;
+import com.zara.price.exception.InvalidBrandException;
+import com.zara.price.exception.InvalidDateException;
+import com.zara.price.exception.InvalidProductException;
 import com.zara.price.exception.PriceNotFoundException;
 import com.zara.price.repository.PriceRepository;
 import com.zara.price.repository.model.Price;
@@ -10,6 +13,8 @@ import org.springframework.stereotype.Service;
 import java.time.ZonedDateTime;
 import java.util.List;
 
+import static java.util.Objects.isNull;
+
 @Service
 @RequiredArgsConstructor
 public class PriceService {
@@ -17,10 +22,31 @@ public class PriceService {
     private final PriceRepository priceRepository;
 
     public Price getPrice(Brand brand, Long productId, ZonedDateTime date) {
+        checkBrand(brand);
+        checkProductId(productId);
+        checkDate(date);
         return getPrices(brand, productId, date)
                 .stream()
                 .findFirst()
                 .orElseThrow(PriceNotFoundException::new);
+    }
+
+    private void checkDate(ZonedDateTime date) {
+        if (isNull(date)) {
+            throw new InvalidDateException();
+        }
+    }
+
+    private void checkProductId(Long productId) {
+        if (isNull(productId) || productId <= 0) {
+            throw new InvalidProductException();
+        }
+    }
+
+    private void checkBrand(Brand brand) {
+        if (isNull(brand)) {
+            throw new InvalidBrandException();
+        }
     }
 
     private List<Price> getPrices(Brand brand, Long productId, ZonedDateTime date) {
