@@ -1,7 +1,8 @@
 package com.zara.price.controller;
 
 import com.zara.price.controller.dto.ApiError;
-import com.zara.price.exception.ApiException;
+import com.zara.price.exception.InvalidProductException;
+import com.zara.price.exception.PriceException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.convert.ConversionFailedException;
@@ -30,7 +31,7 @@ public class ControllerExceptionHandler {
 
     @ExceptionHandler(NoHandlerFoundException.class)
     public ResponseEntity<ApiError> noHandlerFoundException(HttpServletRequest req, NoHandlerFoundException ex) {
-        ApiError apiError = ApiError.builder()
+        var apiError = ApiError.builder()
                 .error("route_not_found")
                 .message(String.format("Route %s not found", req.getRequestURI()))
                 .status(NOT_FOUND.value())
@@ -40,7 +41,7 @@ public class ControllerExceptionHandler {
 
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public ResponseEntity<ApiError> handlerHttpRequestMethodNotSupportedException(HttpServletRequest req, HttpRequestMethodNotSupportedException ex) {
-        ApiError apiError = ApiError.builder()
+        var apiError = ApiError.builder()
                 .error("method_not_allowed")
                 .message(String.format("%s. Route %s", ex.getMessage(), req.getRequestURI()))
                 .status(METHOD_NOT_ALLOWED.value())
@@ -50,7 +51,7 @@ public class ControllerExceptionHandler {
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ApiError> handlerHttpMessageNotReadableException(HttpServletRequest req, HttpMessageNotReadableException ex) {
-        ApiError apiError = ApiError.builder()
+        var apiError = ApiError.builder()
                 .error("required_request_body")
                 .message("Required request body is missing")
                 .status(BAD_REQUEST.value())
@@ -60,7 +61,7 @@ public class ControllerExceptionHandler {
 
     @ExceptionHandler(MissingServletRequestParameterException.class)
     public ResponseEntity<ApiError> handleMissingRequestParameterException(MissingServletRequestParameterException ex) {
-        ApiError apiError = ApiError.builder()
+        var apiError = ApiError.builder()
                 .error("missing_parameter")
                 .message(String.format("Missing required parameter '%s'", ex.getParameterName()))
                 .status(BAD_REQUEST.value())
@@ -68,13 +69,13 @@ public class ControllerExceptionHandler {
         return handleErrorResponse(ex, apiError);
     }
 
-    @ExceptionHandler(ApiException.class)
-    protected ResponseEntity<ApiError> handleApiException(ApiException ex) {
-        ApiError apiError = ApiError
+    @ExceptionHandler(PriceException.class)
+    protected ResponseEntity<ApiError> handlePriceException(PriceException ex) {
+        var apiError = ApiError
                 .builder()
-                .error(ex.getCode())
+                .status(INTERNAL_SERVER_ERROR.value())
                 .message(ex.getMessage())
-                .status(ex.getStatus().value())
+                .error("internal_error")
                 .build();
         return handleErrorResponse(ex, apiError);
     }
@@ -91,7 +92,27 @@ public class ControllerExceptionHandler {
             return handleUnknownException(ex);
         }
 
-        return handleApiException((ApiException) conversionException.getCause());
+        return handlePriceException((PriceException) conversionException.getCause());
+    }
+
+    @ExceptionHandler(ConversionFailedException.class)
+    protected ResponseEntity<ApiError> handleConversionFailedException(ConversionFailedException ex) {
+        var apiError = ApiError.builder()
+                .message(ex.getMessage())
+                .error("bad_request")
+                .status(BAD_REQUEST.value())
+                .build();
+        return handleErrorResponse(ex, apiError);
+    }
+
+    @ExceptionHandler(InvalidProductException.class)
+    protected ResponseEntity<ApiError> handleInvalidProductException(InvalidProductException ex) {
+        var apiError = ApiError.builder()
+                .message(ex.getMessage())
+                .error("bad_request")
+                .status(BAD_REQUEST.value())
+                .build();
+        return handleErrorResponse(ex, apiError);
     }
 
     @ExceptionHandler(Exception.class)
@@ -128,6 +149,6 @@ public class ControllerExceptionHandler {
     }
 
     private boolean isCauseApiException(Exception ex) {
-        return nonNull(ex.getCause()) && ex.getCause() instanceof ApiException;
+        return nonNull(ex.getCause()) && ex.getCause() instanceof PriceException;
     }
 }

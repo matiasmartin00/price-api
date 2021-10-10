@@ -1,6 +1,6 @@
 package com.zara.price.exception;
 
-public class InvalidProductException extends BadRequestException {
+public class InvalidProductException extends PriceException {
 
     private static final String MESSAGE = "Invalid product.";
 
