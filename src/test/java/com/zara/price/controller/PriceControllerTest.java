@@ -82,7 +82,7 @@ public class PriceControllerTest extends ControllerTest {
 
     @Test
     public void getPrice_invalidBrand() {
-        ApiError expected = ApiErrorFixture.badRequest("Invalid brand.");
+        ApiError expected = ApiErrorFixture.missingParameter("brand");
         ResponseEntity<ApiError> responseEntity = this.testRestTemplate.exchange("/v1/prices?date=2021-01-01T17:20:00.000-03:00&product_id=1&brand=FAKE", HttpMethod.GET, this.getDefaultRequestEntity(), ApiError.class);
 
         assertThat(responseEntity.getStatusCode())
