@@ -2,9 +2,9 @@ package com.zara.price.exception;
 
 public class InvalidProductException extends PriceException {
 
-    private static final String MESSAGE = "Invalid product.";
+  private static final String MESSAGE = "Invalid product.";
 
-    public InvalidProductException() {
-        super(MESSAGE);
-    }
+  public InvalidProductException() {
+    super(MESSAGE);
+  }
 }
