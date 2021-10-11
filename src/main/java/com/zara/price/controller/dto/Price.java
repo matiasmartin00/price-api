@@ -6,13 +6,12 @@ import com.zara.price.enums.Brand;
 import com.zara.price.enums.Currency;
 import com.zara.price.serializer.DateDeserializer;
 import com.zara.price.serializer.DateSerializer;
+import java.math.BigDecimal;
+import java.time.ZonedDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.math.BigDecimal;
-import java.time.ZonedDateTime;
 
 @Data
 @Builder
@@ -20,18 +19,18 @@ import java.time.ZonedDateTime;
 @AllArgsConstructor
 public class Price {
 
-    private Brand brand;
-    private Long productId;
-    private Long priceList;
+  private Brand brand;
+  private Long productId;
+  private Long priceList;
 
-    @JsonSerialize(using = DateSerializer.class)
-    @JsonDeserialize(using = DateDeserializer.class)
-    private ZonedDateTime startDate;
+  @JsonSerialize(using = DateSerializer.class)
+  @JsonDeserialize(using = DateDeserializer.class)
+  private ZonedDateTime startDate;
 
-    @JsonSerialize(using = DateSerializer.class)
-    @JsonDeserialize(using = DateDeserializer.class)
-    private ZonedDateTime endDate;
+  @JsonSerialize(using = DateSerializer.class)
+  @JsonDeserialize(using = DateDeserializer.class)
+  private ZonedDateTime endDate;
 
-    private BigDecimal price;
-    private Currency currency;
+  private BigDecimal price;
+  private Currency currency;
 }

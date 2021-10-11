@@ -2,9 +2,9 @@ package com.zara.price.exception;
 
 public class InvalidBrandException extends PriceException {
 
-    private static final String MESSAGE = "Invalid brand.";
+  private static final String MESSAGE = "Invalid brand.";
 
-    public InvalidBrandException() {
-        super(MESSAGE);
-    }
+  public InvalidBrandException() {
+    super(MESSAGE);
+  }
 }

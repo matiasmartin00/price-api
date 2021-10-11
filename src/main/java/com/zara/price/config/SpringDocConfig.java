@@ -13,16 +13,16 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties(prefix = "app")
 public class SpringDocConfig {
 
-    private String title;
-    private String description;
-    private String version;
+  private String title;
+  private String description;
+  private String version;
 
-    @Bean
-    public OpenAPI customOpenAPI() {
-        return new OpenAPI().info(new Info().title(title)
-                .version(version)
-                .description(description)
-                .contact(new Contact().name("price-api")
-                        .email("matiass.lean@gmail.com")));
-    }
+  @Bean
+  public OpenAPI customOpenAPI() {
+    return new OpenAPI().info(new Info().title(title)
+        .version(version)
+        .description(description)
+        .contact(new Contact().name("price-api")
+            .email("matiass.lean@gmail.com")));
+  }
 }
