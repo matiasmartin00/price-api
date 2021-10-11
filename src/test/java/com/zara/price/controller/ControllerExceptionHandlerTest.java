@@ -38,7 +38,7 @@ public class ControllerExceptionHandlerTest extends ControllerTest {
         .getPrice(any(), any(), any());
 
     ResponseEntity<ApiError> responseEntity = this.testRestTemplate
-        .exchange("/v1/prices?date=2021-01-01T17:20:00.000-03:00&brand=ZARA&product_id=1",
+        .exchange("/v1/prices?date=2021-01-01T17:20:00.000-00:00&brand=ZARA&product_id=1",
             HttpMethod.GET, this.getDefaultRequestEntity(), ApiError.class);
 
     assertThat(responseEntity.getStatusCode())

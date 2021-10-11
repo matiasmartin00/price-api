@@ -38,19 +38,19 @@ public class PriceControllerTest extends ControllerTest {
     var expectedUseCase6 = PriceFixture.price_useCase6();
     var expectedUseCase7 = PriceFixture.price_useCase7();
     return Stream.of(
-        Arguments.of("ZARA", 35455L, ZonedDateTime.parse("2020-06-14T10:00:00.000-03:00"),
+        Arguments.of("ZARA", 35455L, ZonedDateTime.parse("2020-06-14T10:00:00.000-00:00"),
             expectedUseCase1), // use_case 1
-        Arguments.of("ZARA", 35455L, ZonedDateTime.parse("2020-06-14T16:00:00.000-03:00"),
+        Arguments.of("ZARA", 35455L, ZonedDateTime.parse("2020-06-14T16:00:00.000-00:00"),
             expectedUseCase1), // use_case 2
-        Arguments.of("ZARA", 35455L, ZonedDateTime.parse("2020-06-14T21:00:00.000-03:00"),
+        Arguments.of("ZARA", 35455L, ZonedDateTime.parse("2020-06-14T21:00:00.000-00:00"),
             expectedUseCase1), // use_case 3
-        Arguments.of("ZARA", 35455L, ZonedDateTime.parse("2020-06-15T10:00:00.000-03:00"),
+        Arguments.of("ZARA", 35455L, ZonedDateTime.parse("2020-06-15T10:00:00.000-00:00"),
             expectedUseCase1), // use_case 4
-        Arguments.of("ZARA", 35455L, ZonedDateTime.parse("2020-06-16T16:00:00.000-03:00"),
+        Arguments.of("ZARA", 35455L, ZonedDateTime.parse("2020-06-16T16:00:00.000-00:00"),
             expectedUseCase1), // use_case 5
-        Arguments.of("ZARA", 35455L, ZonedDateTime.parse("2021-01-10T11:00:00.000-03:00"),
+        Arguments.of("ZARA", 35455L, ZonedDateTime.parse("2021-01-10T11:00:00.000-00:00"),
             expectedUseCase6), // use_case 6
-        Arguments.of("ZARA", 35455L, ZonedDateTime.parse("2021-01-10T17:00:00.000-03:00"),
+        Arguments.of("ZARA", 35455L, ZonedDateTime.parse("2021-01-10T17:00:00.000-00:00"),
             expectedUseCase7) // use_case 7
     );
   }
@@ -73,7 +73,7 @@ public class PriceControllerTest extends ControllerTest {
   public void getPrice_missingProductId() {
     ApiError expected = ApiErrorFixture.missingParameter("product_id");
     ResponseEntity<ApiError> responseEntity = this.testRestTemplate
-        .exchange("/v1/prices?date=2021-01-01T17:20:00.000-03:00&brand=ZARA", HttpMethod.GET,
+        .exchange("/v1/prices?date=2021-01-01T17:20:00.000-00:00&brand=ZARA", HttpMethod.GET,
             this.getDefaultRequestEntity(), ApiError.class);
 
     assertThat(responseEntity.getStatusCode())
@@ -86,7 +86,7 @@ public class PriceControllerTest extends ControllerTest {
   public void getPrice_invalidProductId() {
     ApiError expected = ApiErrorFixture.badRequest("Invalid product.");
     ResponseEntity<ApiError> responseEntity = this.testRestTemplate
-        .exchange("/v1/prices?date=2021-01-01T17:20:00.000-03:00&product_id=-1&brand=ZARA",
+        .exchange("/v1/prices?date=2021-01-01T17:20:00.000-00:00&product_id=-1&brand=ZARA",
             HttpMethod.GET, this.getDefaultRequestEntity(), ApiError.class);
 
     assertThat(responseEntity.getStatusCode())
@@ -99,7 +99,7 @@ public class PriceControllerTest extends ControllerTest {
   public void getPrice_missingBrand() {
     ApiError expected = ApiErrorFixture.missingParameter("brand");
     ResponseEntity<ApiError> responseEntity = this.testRestTemplate
-        .exchange("/v1/prices?date=2021-01-01T17:20:00.000-03:00&product_id=1", HttpMethod.GET,
+        .exchange("/v1/prices?date=2021-01-01T17:20:00.000-00:00&product_id=1", HttpMethod.GET,
             this.getDefaultRequestEntity(), ApiError.class);
 
     assertThat(responseEntity.getStatusCode())
@@ -112,7 +112,7 @@ public class PriceControllerTest extends ControllerTest {
   public void getPrice_invalidBrand() {
     ApiError expected = ApiErrorFixture.missingParameter("brand");
     ResponseEntity<ApiError> responseEntity = this.testRestTemplate
-        .exchange("/v1/prices?date=2021-01-01T17:20:00.000-03:00&product_id=1&brand=FAKE",
+        .exchange("/v1/prices?date=2021-01-01T17:20:00.000-00:00&product_id=1&brand=FAKE",
             HttpMethod.GET, this.getDefaultRequestEntity(), ApiError.class);
 
     assertThat(responseEntity.getStatusCode())

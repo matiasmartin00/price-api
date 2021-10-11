@@ -6,6 +6,20 @@
  - Maven
  - Spring boot
  - H2
+ - Docker
+
+# Build docker
+
+```shell
+docker build -t 1.1.0 .
+```
+# Build run docker
+
+you_port: el puerto donde quieran publicarlo localmente.
+
+```shell
+docker run -p {your_port}:8080 1.1.0:latest
+```
 
 # Problem to resolve
 
