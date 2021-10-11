@@ -85,10 +85,9 @@ public class PriceServiceTest {
     @ParameterizedTest
     @ValueSource(longs = {0L, -1L})
     public void getPrice_invalid_product_id(Long productId) {
-        var brand = ZARA;
         var date = ZonedDateTime.parse("2021-01-01T00:00:00-03:00");
 
-        assertThatThrownBy(() -> priceService.getPrice(brand, productId, date))
+        assertThatThrownBy(() -> priceService.getPrice(ZARA, productId, date))
                 .isInstanceOf(InvalidProductException.class)
                 .hasMessage("Invalid product.");
 
