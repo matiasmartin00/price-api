@@ -22,8 +22,8 @@ public class PriceFixture {
         .productId(1L)
         .brandId(1L)
         .priceList(1L)
-        .startDate(ZonedDateTime.parse("2021-01-01T00:00:00-03:00"))
-        .endDate(ZonedDateTime.parse("2021-01-02T00:00:00-03:00"))
+        .startDate(ZonedDateTime.parse("2021-01-01T00:00:00-00:00"))
+        .endDate(ZonedDateTime.parse("2021-01-02T00:00:00-00:00"))
         .price(new BigDecimal("10.6573"))
         .curr(Currency.EUR)
         .priority(0)
@@ -35,8 +35,8 @@ public class PriceFixture {
         .productId(1L)
         .brand(ZARA)
         .priceList(1L)
-        .startDate(ZonedDateTime.parse("2021-01-01T00:00:00-03:00"))
-        .endDate(ZonedDateTime.parse("2021-01-02T00:00:00-03:00"))
+        .startDate(ZonedDateTime.parse("2021-01-01T00:00:00-00:00"))
+        .endDate(ZonedDateTime.parse("2021-01-02T00:00:00-00:00"))
         .price(new BigDecimal("10.6573"))
         .currency(Currency.EUR)
         .build();
@@ -46,8 +46,8 @@ public class PriceFixture {
     return price(ZARA,
         35455L,
         1L,
-        ZonedDateTime.parse("2020-06-14T00:00-03:00"),
-        ZonedDateTime.parse("2020-12-31T23:59:59-03:00"),
+        ZonedDateTime.parse("2020-06-14T00:00-00:00"),
+        ZonedDateTime.parse("2020-12-31T23:59:59-00:00"),
         new BigDecimal("35.50"));
   }
 
@@ -55,8 +55,8 @@ public class PriceFixture {
     return price(ZARA,
         35455L,
         4L,
-        ZonedDateTime.parse("2021-01-10T10:00-03:00"),
-        ZonedDateTime.parse("2021-01-10T16:00-03:00"),
+        ZonedDateTime.parse("2021-01-10T10:00-00:00"),
+        ZonedDateTime.parse("2021-01-10T16:00-00:00"),
         new BigDecimal("30.95"));
   }
 
@@ -64,8 +64,8 @@ public class PriceFixture {
     return price(ZARA,
         35455L,
         4L,
-        ZonedDateTime.parse("2021-01-10T16:00-03:00"),
-        ZonedDateTime.parse("2021-01-10T23:59:59-03:00"),
+        ZonedDateTime.parse("2021-01-10T16:00-00:00"),
+        ZonedDateTime.parse("2021-01-10T23:59:59-00:00"),
         new BigDecimal("45.75"));
   }
 

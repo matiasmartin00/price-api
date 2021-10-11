@@ -51,7 +51,7 @@ public class PriceServiceTest {
   public void getPrice() {
     var brand = ZARA;
     var productId = 1L;
-    var date = ZonedDateTime.parse("2021-01-01T00:00:00-03:00");
+    var date = ZonedDateTime.parse("2021-01-01T00:00:00-00:00");
 
     var prices = PriceFixture.prices();
 
@@ -74,7 +74,7 @@ public class PriceServiceTest {
   public void getPrice_not_found() {
     var brand = ZARA;
     var productId = 1L;
-    var date = ZonedDateTime.parse("2021-01-01T00:00:00-03:00");
+    var date = ZonedDateTime.parse("2021-01-01T00:00:00-00:00");
 
     when(priceRepository
         .findAllByBrandIdAndProductIdAndStartDateBeforeAndEndDateAfterOrderByPriorityAsc(
@@ -93,7 +93,7 @@ public class PriceServiceTest {
   @ParameterizedTest
   @ValueSource(longs = {0L, -1L})
   public void getPrice_invalid_product_id(Long productId) {
-    var date = ZonedDateTime.parse("2021-01-01T00:00:00-03:00");
+    var date = ZonedDateTime.parse("2021-01-01T00:00:00-00:00");
 
     assertThatThrownBy(() -> priceService.getPrice(ZARA, productId, date))
         .isInstanceOf(InvalidProductException.class)
@@ -107,7 +107,7 @@ public class PriceServiceTest {
   @Test
   public void getPrice_invalid_brand() {
     var productId = 1L;
-    var date = ZonedDateTime.parse("2021-01-01T00:00:00-03:00");
+    var date = ZonedDateTime.parse("2021-01-01T00:00:00-00:00");
 
     assertThatThrownBy(() -> priceService.getPrice(null, productId, date))
         .isInstanceOf(InvalidBrandException.class)
