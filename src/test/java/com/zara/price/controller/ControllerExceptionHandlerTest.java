@@ -10,13 +10,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doThrow;
 
 public class ControllerExceptionHandlerTest extends ControllerTest {
 
 
     @SpyBean
-    private PingController pingController;
+    private PriceController priceController;
 
     @Test
     public void notFound() {
@@ -32,10 +33,10 @@ public class ControllerExceptionHandlerTest extends ControllerTest {
     @Test
     public void unhandledException() {
         ApiError expected = ApiErrorFixture.internalError();
-        doThrow(new MockitoException("any error")).when(pingController)
-                .ping();
+        doThrow(new MockitoException("any error")).when(priceController)
+                .getPrice(any(), any(), any());
 
-        ResponseEntity<ApiError> responseEntity = this.testRestTemplate.exchange("/ping", HttpMethod.GET, this.getDefaultRequestEntity(), ApiError.class);
+        ResponseEntity<ApiError> responseEntity = this.testRestTemplate.exchange("/v1/prices?date=2021-01-01T17:20:00.000-03:00&brand=ZARA&product_id=1", HttpMethod.GET, this.getDefaultRequestEntity(), ApiError.class);
 
         assertThat(responseEntity.getStatusCode())
             .isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -45,9 +46,9 @@ public class ControllerExceptionHandlerTest extends ControllerTest {
 
     @Test
     public void methodNoSupport() {
-        ApiError expected = ApiErrorFixture.methodNotSupport("POST", "/ping");
+        ApiError expected = ApiErrorFixture.methodNotSupport("POST", "/v1/prices");
 
-        ResponseEntity<ApiError> responseEntity = this.testRestTemplate.exchange("/ping", HttpMethod.POST, this.getDefaultRequestEntity(), ApiError.class);
+        ResponseEntity<ApiError> responseEntity = this.testRestTemplate.exchange("/v1/prices", HttpMethod.POST, this.getDefaultRequestEntity(), ApiError.class);
 
         assertThat(responseEntity.getStatusCode())
                 .isEqualTo(HttpStatus.METHOD_NOT_ALLOWED);

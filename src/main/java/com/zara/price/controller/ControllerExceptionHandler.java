@@ -15,12 +15,10 @@ import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
 import javax.servlet.http.HttpServletRequest;
 
-import static java.util.Objects.nonNull;
 import static org.apache.commons.lang.exception.ExceptionUtils.getFullStackTrace;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
@@ -81,21 +79,6 @@ public class ControllerExceptionHandler {
                 .error("internal_error")
                 .build();
         return handleErrorResponse(ex, apiError);
-    }
-
-    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
-    protected ResponseEntity<ApiError> handleMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException ex) {
-        if (isNotCauseConversionException(ex)) {
-            return handleUnknownException(ex);
-        }
-
-        ConversionFailedException conversionException = (ConversionFailedException) ex.getCause();
-
-        if (isNotCauseApiException(conversionException)) {
-            return handleUnknownException(ex);
-        }
-
-        return handlePriceException((PriceException) conversionException.getCause());
     }
 
     @ExceptionHandler(ConversionFailedException.class)
@@ -167,21 +150,5 @@ public class ControllerExceptionHandler {
 
     private void logException(Exception e) {
         log.error(String.format("%s - %s", e.getMessage(), getFullStackTrace(e)));
-    }
-
-    private boolean isNotCauseConversionException(Exception ex) {
-        return !isCauseConversionException(ex);
-    }
-
-    private boolean isCauseConversionException(Exception ex) {
-        return nonNull(ex.getCause()) && ex.getCause() instanceof ConversionFailedException;
-    }
-
-    private boolean isNotCauseApiException(Exception ex) {
-        return !isCauseApiException(ex);
-    }
-
-    private boolean isCauseApiException(Exception ex) {
-        return nonNull(ex.getCause()) && ex.getCause() instanceof PriceException;
     }
 }
