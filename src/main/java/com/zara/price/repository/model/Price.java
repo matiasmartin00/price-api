@@ -1,9 +1,15 @@
-package com.zara.price.repository;
+package com.zara.price.repository.model;
 
+import com.zara.price.enums.Currency;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.math.BigDecimal;
@@ -11,6 +17,9 @@ import java.time.ZonedDateTime;
 
 @Data
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "PRICES")
 public class Price {
 
@@ -39,5 +48,6 @@ public class Price {
     private BigDecimal price;
 
     @Column(name = "CURR")
-    private String curr;
+    @Enumerated(EnumType.STRING)
+    private Currency curr;
 }

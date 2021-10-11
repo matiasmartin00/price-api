@@ -1,8 +1,11 @@
 package com.zara.price.controller;
 
 import com.zara.price.controller.dto.ApiError;
+import com.zara.price.exception.InvalidBrandException;
+import com.zara.price.exception.InvalidDateException;
 import com.zara.price.exception.InvalidProductException;
 import com.zara.price.exception.PriceException;
+import com.zara.price.exception.PriceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.convert.ConversionFailedException;
@@ -107,6 +110,36 @@ public class ControllerExceptionHandler {
 
     @ExceptionHandler(InvalidProductException.class)
     protected ResponseEntity<ApiError> handleInvalidProductException(InvalidProductException ex) {
+        var apiError = ApiError.builder()
+                .message(ex.getMessage())
+                .error("bad_request")
+                .status(BAD_REQUEST.value())
+                .build();
+        return handleErrorResponse(ex, apiError);
+    }
+
+    @ExceptionHandler(PriceNotFoundException.class)
+    protected ResponseEntity<ApiError> handlePriceNotFoundException(PriceNotFoundException ex) {
+        var apiError = ApiError.builder()
+                .message(ex.getMessage())
+                .error("not_found")
+                .status(NOT_FOUND.value())
+                .build();
+        return handleErrorResponse(ex, apiError);
+    }
+
+    @ExceptionHandler(InvalidDateException.class)
+    protected ResponseEntity<ApiError> handleInvalidDateException(InvalidDateException ex) {
+        var apiError = ApiError.builder()
+                .message(ex.getMessage())
+                .error("bad_request")
+                .status(BAD_REQUEST.value())
+                .build();
+        return handleErrorResponse(ex, apiError);
+    }
+
+    @ExceptionHandler(InvalidBrandException.class)
+    protected ResponseEntity<ApiError> handleInvalidBrandException(InvalidBrandException ex) {
         var apiError = ApiError.builder()
                 .message(ex.getMessage())
                 .error("bad_request")
