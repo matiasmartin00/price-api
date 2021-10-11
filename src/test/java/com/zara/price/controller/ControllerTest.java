@@ -15,19 +15,19 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class ControllerTest {
 
-    @Autowired
-    protected TestRestTemplate testRestTemplate;
+  @Autowired
+  protected TestRestTemplate testRestTemplate;
 
-    @Autowired
-    protected ObjectMapper objectMapper;
+  @Autowired
+  protected ObjectMapper objectMapper;
 
-    protected <T> RequestEntity<T> getDefaultRequestEntity() {
-        HttpHeaders headers = new HttpHeaders();
-        return new RequestEntity<>(headers, HttpMethod.GET, null);
-    }
+  protected <T> RequestEntity<T> getDefaultRequestEntity() {
+    HttpHeaders headers = new HttpHeaders();
+    return new RequestEntity<>(headers, HttpMethod.GET, null);
+  }
 
-    protected <T> RequestEntity<T> getRequestEntity(T body) {
-        HttpHeaders headers = new HttpHeaders();
-        return new RequestEntity<>(body, headers, HttpMethod.POST, null);
-    }
+  protected <T> RequestEntity<T> getRequestEntity(T body) {
+    HttpHeaders headers = new HttpHeaders();
+    return new RequestEntity<>(body, headers, HttpMethod.POST, null);
+  }
 }
