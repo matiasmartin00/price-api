@@ -8,17 +8,21 @@
  - H2
  - Docker
 
-# Build docker
+# Build docker Or Pull
 
 ```shell
-docker build -t 1.1.0 .
+docker build -t matiass2010/tech-exam:1.1.0 .
 ```
-# Build run docker
-
-you_port: el puerto donde quieran publicarlo localmente.
 
 ```shell
-docker run -p {your_port}:8080 1.1.0:latest
+docker docker pull matiass2010/tech-exam:1.1.0
+```
+
+# Run docker
+
+your_port: el puerto donde quieran publicarlo localmente.
+```shell
+docker run -p {your_port}:8080 matiass2010/tech-exam:1.1.0
 ```
 
 # Problem to resolve
