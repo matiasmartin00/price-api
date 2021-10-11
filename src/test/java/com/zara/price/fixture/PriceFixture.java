@@ -31,6 +31,18 @@ public class PriceFixture {
                 .build();
     }
 
+    public static com.zara.price.controller.dto.Price priceDto() {
+        return com.zara.price.controller.dto.Price.builder()
+                .productId(1L)
+                .brand(ZARA)
+                .priceList(1L)
+                .startDate(ZonedDateTime.parse("2021-01-01T00:00:00-03:00"))
+                .endDate(ZonedDateTime.parse("2021-01-02T00:00:00-03:00"))
+                .price(new BigDecimal("10.6573"))
+                .currency(Currency.EUR)
+                .build();
+    }
+
     public static com.zara.price.controller.dto.Price price_useCase1() {
         return price(ZARA,
                 35455L,
